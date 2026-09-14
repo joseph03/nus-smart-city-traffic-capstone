@@ -23,10 +23,13 @@ The environment specification is stored in:
 - environment-tensorflow.yml
 
 To recreate the environment:
+
 conda env create -f environment.yml
+
 conda activate pytorch310
 
 conda env create -f environment-tensorflow.yml
+
 conda activate tf_wsl2_310
 
 ## Project Structure
