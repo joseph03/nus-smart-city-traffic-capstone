@@ -35,5 +35,6 @@ conda activate tf_wsl2_310
 ## Project Structure
 - `data/` - raw and processed traffic data
 - `part1_data_analytics/` - SQL, statistics, probability and Power BI
+  - traffic.db - SQLite database containing raw and cleaned traffic tables
 - `part2_python/` - Python data pipeline, feature engineering, visualisation and mini application
 - `part3_machine_learning/` - machine learning, deep learning, explainability and MLOps
