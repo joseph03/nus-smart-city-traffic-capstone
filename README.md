@@ -34,8 +34,14 @@ conda activate tf_wsl2_310
 
 ## Project Structure
 - `data/` - raw and processed traffic data
+  - raw/Metro_Interstate_Traffic_Volume.csv  - raw dataset
+  - processed/traffic_clean.csv   - clean dataset
 - `part1_data_analytics/` - SQL, statistics, probability and Power BI
   - traffic.db - SQLite database containing raw and cleaned traffic tables
     - traffic - table with raw traffic records
+    - traffic_clean - table with cleaned traffic records
+  - load_sqlite.py - load raw dataset to traffic table
+  - inspect_data.py - inspect raw dataset
+  - clean_data.py - create traffic_clean.csv, traffic_clean table 
 - `part2_python/` - Python data pipeline, feature engineering, visualisation and mini application
 - `part3_machine_learning/` - machine learning, deep learning, explainability and MLOps
