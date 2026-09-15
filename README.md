@@ -71,4 +71,17 @@ conda activate tf_wsl2_310
 * 2016 and 2017 both have complete yearly coverage.
 * Traffic volume increased from 29,471,608 in 2016 to 35,393,801 in 2017, an increase of approximately 20.09%.
 
+## Task 1.3 - Holiday Temperature Findings
+- `part1_data_analytics/` 
+  - task1_3_holiday_temperature.sql
+  - task1_3a_duplicate_holidays.sql
+  - task1_3b_enhanced_holiday_temperature.sql
+
+* Labor Day temperatures were fairly stable across the three available years: 21.87°C in 2015, 20.02°C in 2016, and 22.39°C in 2017. 
+* Labor Day traffic volume also remained relatively similar, ranging from 973 to 1,064 vehicles. This suggests no obvious strong relationship between the small temperature differences and traffic volume for these observations. 
+* New Years Day was much colder than Labor Day. The recorded temperature increased from -7.21°C in 2016 to -2.53°C in 2017. 
+* Traffic volume on New Years Day decreased from 1,513 vehicles in 2016 to 798 vehicles in 2017, even though 2017 was warmer. This indicates that temperature alone does not explain the traffic difference. 
+* No New Years Day record is available for 2015 because the 2015 dataset begins only in June. 
+* These results should be interpreted cautiously because the holiday field represents specific recorded timestamps, not a complete set of hourly observations for the whole holiday. 
+* There is no clear evidence here that temperature alone drove holiday traffic volume.
 
