@@ -85,3 +85,21 @@ conda activate tf_wsl2_310
 * These results should be interpreted cautiously because the holiday field represents specific recorded timestamps, not a complete set of hourly observations for the whole holiday. 
 * There is no clear evidence here that temperature alone drove holiday traffic volume.
 
+## Task 2.1 - Descriptive Statistics FindingS
+- `part1_data_analytics/` 
+  - task2_1_statistics.py  
+
+* The mean traffic volume is 3,259.62 vehicles, while the median is 3,379 vehicles, indicating that the distribution is fairly balanced but slightly influenced by lower traffic-volume observations.
+* The standard deviation of 1,986.95 vehicles shows substantial variation in traffic volume across different hours.
+* The large variance of 3,947,988.05 reflects the same high level of dispersion in squared units.
+* The traffic-volume range is 7,280 vehicles, from a minimum of 0 to a maximum of 7,280, showing that traffic conditions vary widely from very low to very high volume periods.
+
+## Task 2.2 - Correlation Findings
+- `part1_data_analytics/` 
+  - task2_2_correlation.py 
+
+* The Pearson correlation coefficient between temperature and traffic volume is approximately 0.1323.
+* This indicates a very weak positive relationship.
+* Higher temperatures are associated with slightly higher traffic volumes, but the relationship is weak.
+* Correlation does not imply causation, as traffic volume is also affected by time of day, day type, holidays, weather conditions, and commuting patterns.
+
