@@ -34,14 +34,41 @@ conda activate tf_wsl2_310
 
 ## Project Structure
 - `data/` - raw and processed traffic data
+- `part1_data_analytics/` - SQL db, statistics, probability and Power BI
+- `part2_python/` - Python data pipeline, feature engineering, visualisation and mini application
+- `part3_machine_learning/` - machine learning, deep learning, explainability and MLOps
+
+## Task 1.1 - Load and Clean Dataset
+- `data/`
   - raw/Metro_Interstate_Traffic_Volume.csv  - raw dataset
-  - processed/traffic_clean.csv   - clean dataset
-- `part1_data_analytics/` - SQL, statistics, probability and Power BI
+  - processed/traffic_clean.csv              - clean dataset
+- `part1_data_analytics/` 
   - traffic.db - SQLite database containing raw and cleaned traffic tables
     - traffic - table with raw traffic records
     - traffic_clean - table with cleaned traffic records
   - load_sqlite.py - load raw dataset to traffic table
   - inspect_data.py - inspect raw dataset
   - clean_data.py - create traffic_clean.csv, traffic_clean table 
-- `part2_python/` - Python data pipeline, feature engineering, visualisation and mini application
-- `part3_machine_learning/` - machine learning, deep learning, explainability and MLOps
+
+- cleaning done
+  - Preserved the original raw CSV and raw SQLite traffic table unchanged.
+  - Removed 17 exact duplicate rows.
+  - Replaced missing holiday values with None.
+  - Standardised weather_description text to lowercase.
+  - Replaced 10 invalid temperature readings of 0 K using the median temperature for the corresponding month.
+  - Replaced one extreme rainfall value of 9831.3 mm with the median positive rainfall for the same month.
+  - Verified that the cleaned dataset contains no duplicate rows, invalid dates, temperatures at or below 0 K, extreme rainfall values, invalid cloud-cover values, or negative traffic volumes.
+  - Saved the cleaned data as data/processed/traffic_clean.csv and as the traffic_clean table in traffic.db.
+
+## Task 1.2 - Annual Traffic Trend Findings
+- `part1_data_analytics/` 
+  - task1_2_annual_traffic.sql
+  - task1_2a_check_days.sql
+
+* Annual totals for 2012, 2014 and 2015 should be interpreted cautiously because those years have incomplete data coverage.
+* 2012 contains only 91 days of records, 2014 contains 214 days, and 2015 contains 195 days.
+* Therefore, large year-on-year percentage changes involving these years mainly reflect differences in data availability rather than true traffic growth or decline.
+* 2016 and 2017 both have complete yearly coverage.
+* Traffic volume increased from 29,471,608 in 2016 to 35,393,801 in 2017, an increase of approximately 20.09%.
+
+
