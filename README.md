@@ -144,3 +144,16 @@ conda activate tf_wsl2_310
 * Squall conditions had the lowest average traffic volume at 2,061.45 vehicles.
 * The difference between the highest and lowest average traffic was 1,557 vehicles.
 * This suggests traffic volume varies across weather conditions, though weather alone should not be treated as the sole cause of the differences.
+
+### Task 4.2D – Temperature vs Traffic Findings
+
+![Temprature vs Traffic](part1_data_analytics/images/task4_2d_temperature_vs_traffic.png)
+
+* The scatter plot shows no clear visual relationship between temperature and traffic volume. 
+* Traffic levels are broadly similar across approximately −20°C to +30°C, with no distinct temperature band associated with higher traffic. 
+* This is consistent with the weak positive correlation coefficient of 0.1323.
+
+
+
+
+
