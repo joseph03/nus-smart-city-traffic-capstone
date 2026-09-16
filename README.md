@@ -136,4 +136,11 @@ conda activate tf_wsl2_310
 ![Hourly Traffic Patterns](part1_data_analytics/images/task4_2b_hourly_traffic.png)
 
 
+### Task 4.2C – Weather Impact Findings
 
+![Weather Impact Traffic Patterns](part1_data_analytics/images/task4_2c_traffic_by_weather.png)
+
+* Cloudy conditions had the highest average traffic volume at 3,618.45 vehicles.
+* Squall conditions had the lowest average traffic volume at 2,061.45 vehicles.
+* The difference between the highest and lowest average traffic was 1,557 vehicles.
+* This suggests traffic volume varies across weather conditions, though weather alone should not be treated as the sole cause of the differences.
