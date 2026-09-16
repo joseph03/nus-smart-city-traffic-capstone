@@ -180,6 +180,8 @@ conda activate tf_wsl2_310
 ### Task 1 - Data Pipeline Construction
 - `part2_python/` 
   - `pipeline.py`
+- `data/`
+  - `processed/traffic_clean_part2.csv`
 
 An end-to-end Python data pipeline was developed in `part2_python/pipeline.py` that:
 
