@@ -45,8 +45,8 @@ conda activate tf_wsl2_310
 
 ### Task 1.1 - Load and Clean Dataset
 - `data/`
-  - raw/Metro_Interstate_Traffic_Volume.csv  - raw dataset
-  - processed/traffic_clean.csv              - clean dataset
+  - `raw/Metro_Interstate_Traffic_Volume.csv`  - raw dataset
+  - `processed/traffic_clean.csv`              - clean dataset
 - `part1_data_analytics/` 
   - `traffic.db` - SQLite database containing raw and cleaned traffic tables
     - `traffic` - table with raw traffic records
@@ -63,7 +63,7 @@ conda activate tf_wsl2_310
   - Replaced 10 invalid temperature readings of 0 K using the median temperature for the corresponding month.
   - Replaced one extreme rainfall value of 9831.3 mm with the median positive rainfall for the same month.
   - Verified that the cleaned dataset contains no duplicate rows, invalid dates, temperatures at or below 0 K, extreme rainfall values, invalid cloud-cover values, or negative traffic volumes.
-  - Saved the cleaned data as data/processed/traffic_clean.csv and as the traffic_clean table in traffic.db.
+  - Saved the cleaned data as `data/processed/traffic_clean.csv` and as the traffic_clean table in traffic.db.
 
 ### Task 1.2 - Annual Traffic Trend Findings
 - `part1_data_analytics/` 
