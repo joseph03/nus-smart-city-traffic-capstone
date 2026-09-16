@@ -175,5 +175,26 @@ conda activate tf_wsl2_310
 
 ![KPI cards and filters](part1_data_analytics/images/task4_3_KPI_cards&filters.png)
 
+## Part 2 - Python Programming
 
+### Task 1 - Data Pipeline Construction
+- `part2_python/` 
+  - `pipeline.py`
+
+An end-to-end Python data pipeline was developed in `part2_python/pipeline.py` that:
+
+- Loads the raw CSV dataset.
+- Validates the expected data schema before processing.
+- Standardises categorical fields.
+- Parses and validates `date_time`.
+- Removes 17 exact duplicate rows.
+- Imputes 10 invalid 0 K temperature readings using the corresponding monthly median temperatures.
+- Imputes one extreme rainfall outlier using the July positive-rainfall median.
+- Validates the cleaned dataset after processing.
+- Saves the cleaned dataset to `data/processed/traffic_clean_part2.csv`.
+- Logs each processing step using appropriate INFO, WARNING, and ERROR logging levels.
+
+Result: The raw dataset contains 48,204 rows and 9 columns. After removing 17 exact duplicate rows, the cleaned dataset contains 48,187 rows and 9 columns.
+
+![Task 1 Pipeline Output](part2_python/images/task1_pipeline_output.png)
 
