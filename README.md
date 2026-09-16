@@ -193,8 +193,9 @@ An end-to-end Python data pipeline was developed in `part2_python/pipeline.py` t
 - Validates the cleaned dataset after processing.
 - Saves the cleaned dataset to `data/processed/traffic_clean_part2.csv`.
 - Logs each processing step using appropriate INFO, WARNING, and ERROR logging levels.
+![Task 1 Pipeline Output](part2_python/images/task1_pipeline_output.png)
 
 Result: The raw dataset contains 48,204 rows and 9 columns. After removing 17 exact duplicate rows, the cleaned dataset contains 48,187 rows and 9 columns.
 
-![Task 1 Pipeline Output](part2_python/images/task1_pipeline_output.png)
+
 
