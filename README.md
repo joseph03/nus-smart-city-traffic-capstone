@@ -48,12 +48,12 @@ conda activate tf_wsl2_310
   - raw/Metro_Interstate_Traffic_Volume.csv  - raw dataset
   - processed/traffic_clean.csv              - clean dataset
 - `part1_data_analytics/` 
-  - traffic.db - SQLite database containing raw and cleaned traffic tables
-    - traffic - table with raw traffic records
-    - traffic_clean - table with cleaned traffic records
-  - load_sqlite.py - load raw dataset to traffic table
-  - inspect_data.py - inspect raw dataset
-  - clean_data.py - create traffic_clean.csv, traffic_clean table 
+  - `traffic.db` - SQLite database containing raw and cleaned traffic tables
+    - `traffic` - table with raw traffic records
+    - `traffic_clean` - table with cleaned traffic records
+  - `load_sqlite.py` - load raw dataset to traffic table
+  - `inspect_data.py` - inspect raw dataset
+  - `clean_data.py` - create traffic_clean.csv, traffic_clean table 
 
 - cleaning done
   - Preserved the original raw CSV and raw SQLite traffic table unchanged.
@@ -67,8 +67,8 @@ conda activate tf_wsl2_310
 
 ### Task 1.2 - Annual Traffic Trend Findings
 - `part1_data_analytics/` 
-  - task1_2_annual_traffic.sql
-  - task1_2a_check_days.sql
+  - `task1_2_annual_traffic.sql`
+  - `task1_2a_check_days.sql`
 
 * Annual totals for 2012, 2014 and 2015 should be interpreted cautiously because those years have incomplete data coverage.
 * 2012 contains only 91 days of records, 2014 contains 214 days, and 2015 contains 195 days.
@@ -78,9 +78,9 @@ conda activate tf_wsl2_310
 
 ### Task 1.3 - Holiday Temperature Findings
 - `part1_data_analytics/` 
-  - task1_3_holiday_temperature.sql
-  - task1_3a_duplicate_holidays.sql
-  - task1_3b_enhanced_holiday_temperature.sql
+  - `task1_3_holiday_temperature.sql`
+  - `task1_3a_duplicate_holidays.sql`
+  - `task1_3b_enhanced_holiday_temperature.sql`
 
 * Labor Day temperatures were fairly stable across the three available years: 21.87°C in 2015, 20.02°C in 2016, and 22.39°C in 2017. 
 * Labor Day traffic volume also remained relatively similar, ranging from 973 to 1,064 vehicles. This suggests no obvious strong relationship between the small temperature differences and traffic volume for these observations. 
@@ -92,7 +92,7 @@ conda activate tf_wsl2_310
 
 ### Task 2.1 - Descriptive Statistics Findings
 - `part1_data_analytics/` 
-  - task2_1_statistics.py  
+  - `task2_1_statistics.py`  
 
 * The mean traffic volume is 3,259.62 vehicles, while the median is 3,379 vehicles, indicating that the distribution is fairly balanced but slightly influenced by lower traffic-volume observations.
 * The standard deviation of 1,986.95 vehicles shows substantial variation in traffic volume across different hours.
@@ -101,7 +101,7 @@ conda activate tf_wsl2_310
 
 ### Task 2.2 - Correlation Findings
 - `part1_data_analytics/` 
-  - task2_2_correlation.py 
+  - `task2_2_correlation.py` 
 
 * The Pearson correlation coefficient between temperature and traffic volume is approximately 0.1323.
 * This indicates a very weak positive relationship.
@@ -110,7 +110,7 @@ conda activate tf_wsl2_310
 
 ### Task 3.1 - Basic Probability Findings
 - `part1_data_analytics/` 
-  - task3_1_basic_probability.py
+  - `task3_1_basic_probability.py`
 
 * Congestion occurred in approximately 14.73% of traffic records.
 * Clear weather occurred in approximately 27.78% of records.
@@ -119,7 +119,7 @@ conda activate tf_wsl2_310
 
 ### Task 3.2 - Conditional Probability Findings
 - `part1_data_analytics/` 
-  - task3_2_conditional_probability.py
+  - `task3_2_conditional_probability.py`
 
 * About 24.83% of congested records occurred during clear weather.
 * About 26.30% of congested records occurred when temperature exceeded 292K.
@@ -129,7 +129,7 @@ conda activate tf_wsl2_310
 
 ### Task 4 - Power BI Traffic Intelligence Dashboard
 - `part1_data_analytics/` 
-  - task4_powerbi_dashboard.pbix
+  - `task4_powerbi_dashboard.pbix`
 
 #### Task 4.1
 
