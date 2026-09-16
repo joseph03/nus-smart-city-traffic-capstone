@@ -164,7 +164,7 @@ conda activate tf_wsl2_310
 
 #### Task 4.2D – Temperature vs Traffic Findings
 
-![Temprature vs Traffic](part1_data_analytics/images/task4_2d_temperature_vs_traffic.png)
+![Temperature vs Traffic](part1_data_analytics/images/task4_2d_temperature_vs_traffic.png)
 
 * Invalid temperature records where temp = 0 K are set to null before Celsius conversion.
 * The scatter plot shows no clear visual relationship between temperature and traffic volume. 
