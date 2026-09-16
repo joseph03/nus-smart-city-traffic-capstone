@@ -198,5 +198,42 @@ An end-to-end Python data pipeline was developed in `part2_python/pipeline.py` t
 
 Result: The raw dataset contains 48,204 rows and 9 columns. After removing 17 exact duplicate rows, the cleaned dataset contains 48,187 rows and 9 columns.
 
+### Task 2 - Feature Engineering
+
+- `part2_python/`
+  - `feature_engineering.py`
+
+The cleaned dataset from Task 1 was transformed into ML-ready features using NumPy and Pandas.
+
+The feature-engineering process:
+
+- Loads `data/processed/traffic_clean_part2.csv`.
+- Logs the dataset shape before feature engineering.
+- Creates time-based features:
+  - `hour`
+  - `day_of_week`
+  - `weekend`
+- Creates cyclical hour encodings:
+  - `hour_sin`
+  - `hour_cos`
+- Creates derived weather indicators:
+  - `is_clear`
+  - `has_rain`
+- One-hot encodes `weather_main` into 11 weather-category columns.
+- Standardises the continuous variables:
+  - `temp`
+  - `traffic_volume`
+- Creates a data-driven `congestion_category` using traffic-volume quartiles:
+  - Low: up to the first quartile (Q1)
+  - Medium: between Q1 and Q3
+  - High: above the third quartile (Q3)
+- Logs intermediate scaling and threshold values at DEBUG level.
+- Logs the dataset shape after feature engineering.
+- Saves the engineered dataset to `data/processed/traffic_features_part2.csv`.
+
+![Task 2 Feature Engineering Output](part2_python/images/task2_features_engineering.png)
+
+**Result:** The cleaned dataset contains 48,187 rows and 9 columns. After feature engineering, the dataset contains 48,187 rows and 30 columns.
+
 
 
