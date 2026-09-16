@@ -34,7 +34,7 @@ conda activate tf_wsl2_310
 
 ## Project Structure
 - `data/` - raw and processed traffic data
-- `part1_data_analytics/` - SQL, SQL db, statistical and probability analysis, Power BI dashboard, Data Analytics Insights Report
+- `part1_data_analytics/` - SQL, SQL db, statistical and probability analysis, Power BI dashboard, Data Analytics Insights Report
 - `part2_python/` - Python data pipeline, feature engineering, visualisation and mini application
 - `part3_machine_learning/` - machine learning, deep learning, explainability and MLOps
 
@@ -90,7 +90,7 @@ conda activate tf_wsl2_310
 * These results should be interpreted cautiously because the holiday field represents specific recorded timestamps, not a complete set of hourly observations for the whole holiday. 
 * There is no clear evidence here that temperature alone drove holiday traffic volume.
 
-### Task 2.1 - Descriptive Statistics FindingS
+### Task 2.1 - Descriptive Statistics Findings
 - `part1_data_analytics/` 
   - task2_1_statistics.py  
 
