@@ -103,3 +103,37 @@ conda activate tf_wsl2_310
 * Higher temperatures are associated with slightly higher traffic volumes, but the relationship is weak.
 * Correlation does not imply causation, as traffic volume is also affected by time of day, day type, holidays, weather conditions, and commuting patterns.
 
+## Task 3.1 - Basic Probability Findings
+- `part1_data_analytics/` 
+  - task3_1_basic_probability.py
+
+* Congestion occurred in approximately 14.73% of traffic records.
+* Clear weather occurred in approximately 27.78% of records.
+* Approximately 3.66% of all records experienced both congestion and clear weather.
+* This suggests that congestion is not limited to poor-weather conditions and can also occur during clear weather.
+
+## Task 3.2 - Conditional Probability Findings
+- `part1_data_analytics/` 
+  - task3_2_conditional_probability.py
+
+* About 24.83% of congested records occurred during clear weather.
+* About 26.30% of congested records occurred when temperature exceeded 292K.
+* P(Clear AND Congestion) = 0.0366 differs from P(Clear) × P(Congestion) = 0.0409, suggesting clear weather and congestion are not perfectly independent.
+* The odds ratio of 0.7355 indicates that the odds of congestion during clear weather were about 26% lower than during cloudy weather.
+* Overall, weather appears to have some association with congestion, but it is clearly not the only factor affecting traffic conditions.
+
+## Task 4 - Power BI Traffic Intelligence Dashboard
+- `part1_data_analytics/` 
+  - task4_powerbi_dashboard.pbix
+
+###Task 4.2A Daily traffic trends for 2015, 2016 and 2017
+
+![Daily Traffic Trends](part1_data_analytics/images/task4_2a_daily_traffic.png)
+
+
+### Task 4.2B Hourly Traffic Patterns for 2017
+
+![Hourly Traffic Patterns](part1_data_analytics/images/task4_2b_hourly_traffic.png)
+
+
+
