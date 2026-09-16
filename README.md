@@ -154,7 +154,9 @@ conda activate tf_wsl2_310
 * Traffic levels are broadly similar across approximately −20°C to +30°C, with no distinct temperature band associated with higher traffic. 
 * This is consistent with the weak positive correlation coefficient of 0.1323.
 
+### Task 4.3 – KPI cards and Filters
 
+![KPI cards and filters](part1_data_analytics/images/task4_3_KPI_cards&filters.png)
 
 
 
