@@ -149,6 +149,7 @@ conda activate tf_wsl2_310
 
 ![Temprature vs Traffic](part1_data_analytics/images/task4_2d_temperature_vs_traffic.png)
 
+* Invalid temperature records where temp = 0 K are set to null before Celsius conversion.
 * The scatter plot shows no clear visual relationship between temperature and traffic volume. 
 * Traffic levels are broadly similar across approximately −20°C to +30°C, with no distinct temperature band associated with higher traffic. 
 * This is consistent with the weak positive correlation coefficient of 0.1323.
