@@ -196,12 +196,14 @@ An end-to-end Python data pipeline was developed in `part2_python/pipeline.py` t
 
 ![Task 1 Pipeline Output](part2_python/images/task1_pipeline_output.png)
 
-Result: The raw dataset contains 48,204 rows and 9 columns. After removing 17 exact duplicate rows, the cleaned dataset contains 48,187 rows and 9 columns.
+**Result:** The raw dataset contains 48,204 rows and 9 columns. After removing 17 exact duplicate rows, the cleaned dataset contains 48,187 rows and 9 columns.
 
 ### Task 2 - Feature Engineering
 
 - `part2_python/`
   - `feature_engineering.py`
+- `data/`
+  - `processed/traffic_features_part2.csv`
 
 The cleaned dataset from Task 1 was transformed into ML-ready features using NumPy and Pandas.
 
