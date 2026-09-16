@@ -23,6 +23,7 @@ Thumbs.db
 
 # Logs
 *.log
+!part2_python/pipeline.log
 
 # SQLite temporary files
 *.sqlite-journal

@@ -1,0 +1,20 @@
+2026-09-16 23:06:12,920 - INFO - __main__ - Raw CSV loaded successfully: 48204 rows, 9 columns
+2026-09-16 23:06:12,920 - INFO - __main__ - Schema validation successful. All expected columns are present.
+2026-09-16 23:06:12,942 - INFO - __main__ - Categorical values standardised for holiday, weather_main and weather_description.
+2026-09-16 23:06:12,957 - INFO - __main__ - All date_time values parsed successfully.
+2026-09-16 23:06:12,982 - WARNING - __main__ - 17 duplicate rows were removed.
+2026-09-16 23:06:12,987 - WARNING - __main__ - 4 invalid temperature rows in month 1 were imputed with monthly median 266.83 K.
+2026-09-16 23:06:12,990 - WARNING - __main__ - 6 invalid temperature rows in month 2 were imputed with monthly median 266.51 K.
+2026-09-16 23:06:12,996 - WARNING - __main__ - 1 extreme rainfall rows in month 7 were imputed with monthly positive-rain median 1.09 mm.
+2026-09-16 23:06:13,007 - INFO - __main__ - Cleaned data validation successful: 48187 rows, 9 columns.
+2026-09-16 23:06:13,157 - INFO - __main__ - Cleaned dataset saved successfully: data/processed/traffic_clean_part2.csv
+2026-09-16 23:06:16,692 - INFO - __main__ - Cleaned dataset loaded for feature engineering: 48187 rows, 9 columns.
+2026-09-16 23:06:16,692 - INFO - __main__ - Dataset shape before feature engineering: 48187 rows, 9 columns.
+2026-09-16 23:06:16,697 - INFO - __main__ - Time features created: hour, day_of_week, weekend.
+2026-09-16 23:06:16,702 - INFO - __main__ - Cyclical hour features created: hour_sin, hour_cos.
+2026-09-16 23:06:16,712 - INFO - __main__ - Weather features created: is_clear, has_rain.
+2026-09-16 23:06:16,727 - INFO - __main__ - weather_main encoded into 11 one-hot columns.
+2026-09-16 23:06:16,739 - INFO - __main__ - Numerical features scaled: temp, traffic_volume.
+2026-09-16 23:06:16,746 - INFO - __main__ - Data-driven congestion category created using traffic-volume quartiles.
+2026-09-16 23:06:16,746 - INFO - __main__ - Dataset shape after feature engineering: 48187 rows, 30 columns.
+2026-09-16 23:06:17,278 - INFO - __main__ - Feature-engineered dataset saved successfully: data/processed/traffic_features_part2.csv
