@@ -5,24 +5,7 @@ from pathlib import Path
 import pandas as pd
 
 
-# -------------------------------------------------
-# Logging setup
-# -------------------------------------------------
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
-
-formatter = logging.Formatter(
-     "%(asctime)s - %(levelname)s - %(module)s - %(funcName)s - %(message)s"
-)
-
-console_handler = logging.StreamHandler()
-console_handler.setFormatter(formatter)
-
-file_handler = logging.FileHandler("part2_python/pipeline.log")
-file_handler.setFormatter(formatter)
-
-logger.addHandler(console_handler)
-logger.addHandler(file_handler)
 
 
 # -------------------------------------------------
@@ -72,6 +55,7 @@ def load_data(csv_path):
         )
         return None
 
+
 # -------------------------------------------------
 # Validate schema
 # -------------------------------------------------
@@ -95,6 +79,7 @@ def validate_schema(df):
 
     return True
 
+
 # -------------------------------------------------
 # Standardise categorical values
 # -------------------------------------------------
@@ -116,7 +101,10 @@ def standardise_categories(df):
             missing_holiday_count,
         )
 
-    original_weather_description = df["weather_description"].astype(str)
+    original_weather_description = (
+        df["weather_description"]
+        .astype(str)
+    )
 
     standardised_weather_description = (
         original_weather_description
@@ -129,7 +117,9 @@ def standardise_categories(df):
         != standardised_weather_description
     ).sum()
 
-    df["weather_description"] = standardised_weather_description
+    df["weather_description"] = (
+        standardised_weather_description
+    )
 
     if weather_description_changes > 0:
         logger.warning(
@@ -149,6 +139,7 @@ def standardise_categories(df):
 
     return df
 
+
 # -------------------------------------------------
 # Parse and validate date/time
 # -------------------------------------------------
@@ -157,24 +148,29 @@ def parse_datetime(df):
 
     df["date_time"] = pd.to_datetime(
         df["date_time"],
-        errors="coerce"
+        errors="coerce",
     )
 
     invalid_dates = df["date_time"].isna().sum()
 
     if invalid_dates > 0:
         logger.warning(
-            "%d rows contain invalid date_time values and will be dropped.",
+            "%d rows contain invalid date_time values "
+            "and will be dropped.",
             invalid_dates,
         )
 
-        df = df.dropna(subset=["date_time"])
+        df = df.dropna(
+            subset=["date_time"]
+        )
+
     else:
         logger.info(
             "All date_time values parsed successfully."
         )
 
     return df
+
 
 # -------------------------------------------------
 # Remove duplicate rows
@@ -191,12 +187,14 @@ def remove_duplicates(df):
             "%d duplicate rows were removed.",
             duplicate_count,
         )
+
     else:
         logger.info(
             "No duplicate rows found."
         )
 
     return df
+
 
 # -------------------------------------------------
 # Handle invalid temperature values
@@ -213,15 +211,20 @@ def handle_invalid_temperature(df):
         )
         return df
 
-    for month in df.loc[invalid_temp, "date_time"].dt.month.unique():
-
+    for month in (
+        df.loc[invalid_temp, "date_time"]
+        .dt.month
+        .unique()
+    ):
         month_valid_temp = df.loc[
             (df["date_time"].dt.month == month)
-            & (df["temp"] > 0),    # exclude 0k
+            & (df["temp"] > 0),
             "temp",
         ]
 
-        month_median = month_valid_temp.median()
+        month_median = (
+            month_valid_temp.median()
+        )
 
         rows_to_fix = (
             invalid_temp
@@ -230,7 +233,10 @@ def handle_invalid_temperature(df):
 
         affected_rows = rows_to_fix.sum()
 
-        df.loc[rows_to_fix, "temp"] = month_median
+        df.loc[
+            rows_to_fix,
+            "temp",
+        ] = month_median
 
         logger.warning(
             "%d invalid temperature rows in month %d "
@@ -241,6 +247,7 @@ def handle_invalid_temperature(df):
         )
 
     return df
+
 
 # -------------------------------------------------
 # Handle extreme rainfall values
@@ -257,8 +264,11 @@ def handle_extreme_rainfall(df):
         )
         return df
 
-    for month in df.loc[extreme_rain, "date_time"].dt.month.unique():
-
+    for month in (
+        df.loc[extreme_rain, "date_time"]
+        .dt.month
+        .unique()
+    ):
         month_valid_rain = df.loc[
             (df["date_time"].dt.month == month)
             & (df["rain_1h"] > 0)
@@ -266,26 +276,84 @@ def handle_extreme_rainfall(df):
             "rain_1h",
         ]
 
-        month_median = month_valid_rain.median()
+        month_median = (
+            month_valid_rain.median()
+        )
 
         rows_to_fix = (
             extreme_rain
             & (df["date_time"].dt.month == month)
         )
 
-        affected_rows = rows_to_fix.sum()
+        affected_rows = (
+            rows_to_fix.sum()
+        )
 
-        df.loc[rows_to_fix, "rain_1h"] = month_median
+        df.loc[
+            rows_to_fix,
+            "rain_1h",
+        ] = month_median
 
         logger.warning(
             "%d extreme rainfall rows in month %d "
-            "were imputed with monthly positive-rain median %.2f mm.",
+            "were imputed with monthly positive-rain "
+            "median %.2f mm.",
             affected_rows,
             month,
             month_median,
         )
 
     return df
+
+
+# -------------------------------------------------
+# Validate cleaned dataset
+# -------------------------------------------------
+def validate_cleaned_data(df):
+    duplicate_count = (
+        df.duplicated().sum()
+    )
+
+    invalid_temp_count = (
+        (df["temp"] <= 0).sum()
+    )
+
+    extreme_rain_count = (
+        (df["rain_1h"] >= 9000).sum()
+    )
+
+    if duplicate_count > 0:
+        logger.error(
+            "Validation failed: %d duplicate rows remain.",
+            duplicate_count,
+        )
+        return False
+
+    if invalid_temp_count > 0:
+        logger.error(
+            "Validation failed: %d invalid temperature "
+            "values remain.",
+            invalid_temp_count,
+        )
+        return False
+
+    if extreme_rain_count > 0:
+        logger.error(
+            "Validation failed: %d extreme rainfall "
+            "values remain.",
+            extreme_rain_count,
+        )
+        return False
+
+    logger.info(
+        "Cleaned data validation successful: "
+        "%d rows, %d columns.",
+        df.shape[0],
+        df.shape[1],
+    )
+
+    return True
+
 
 # -------------------------------------------------
 # Save cleaned dataset
@@ -294,12 +362,12 @@ def save_cleaned_data(df, output_path):
     try:
         output_path.parent.mkdir(
             parents=True,
-            exist_ok=True
+            exist_ok=True,
         )
 
         df.to_csv(
             output_path,
-            index=False
+            index=False,
         )
 
         logger.info(
@@ -317,45 +385,14 @@ def save_cleaned_data(df, output_path):
 
     return True
 
+
 # -------------------------------------------------
-# Validate cleaned dataset
+# Main pipeline
 # -------------------------------------------------
-def validate_cleaned_data(df):
-    duplicate_count = df.duplicated().sum()
-    invalid_temp_count = (df["temp"] <= 0).sum()
-    extreme_rain_count = (df["rain_1h"] >= 9000).sum()
-
-    if duplicate_count > 0:
-        logger.error(
-            "Validation failed: %d duplicate rows remain.",
-            duplicate_count,
-        )
-        return False
-
-    if invalid_temp_count > 0:
-        logger.error(
-            "Validation failed: %d invalid temperature values remain.",
-            invalid_temp_count,
-        )
-        return False
-
-    if extreme_rain_count > 0:
-        logger.error(
-            "Validation failed: %d extreme rainfall values remain.",
-            extreme_rain_count,
-        )
-        return False
-
-    logger.info(
-        "Cleaned data validation successful: %d rows, %d columns.",
-        df.shape[0],
-        df.shape[1],
-    )
-
-    return True
-
 def main():
-    csv_path = Path("data/raw/Metro_Interstate_Traffic_Volume.csv")
+    csv_path = Path(
+        "data/raw/Metro_Interstate_Traffic_Volume.csv"
+    )
 
     df = load_data(csv_path)
 
@@ -375,11 +412,44 @@ def main():
         sys.exit(1)
 
     output_path = Path(
-    "data/processed/traffic_clean_part2.csv")
+        "data/processed/traffic_clean_part2.csv"
+    )
 
-    if not save_cleaned_data(df, output_path):
+    if not save_cleaned_data(
+        df,
+        output_path,
+    ):
         sys.exit(1)
 
 
+# -------------------------------------------------
+# Entry point and logging configuration
+# -------------------------------------------------
 if __name__ == "__main__":
+    logger.setLevel(logging.INFO)
+
+    formatter = logging.Formatter(
+        "%(asctime)s - %(levelname)s - %(module)s - "
+        "%(funcName)s - %(message)s"
+    )
+
+    console_handler = logging.StreamHandler()
+    console_handler.setFormatter(
+        formatter
+    )
+
+    file_handler = logging.FileHandler(
+        "part2_python/pipeline.log"
+    )
+    file_handler.setFormatter(
+        formatter
+    )
+
+    logger.addHandler(
+        console_handler
+    )
+    logger.addHandler(
+        file_handler
+    )
+
     main()
