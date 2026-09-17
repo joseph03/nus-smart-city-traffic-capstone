@@ -18,3 +18,15 @@
 2026-09-16 23:06:16,746 - INFO - __main__ - Data-driven congestion category created using traffic-volume quartiles.
 2026-09-16 23:06:16,746 - INFO - __main__ - Dataset shape after feature engineering: 48187 rows, 30 columns.
 2026-09-16 23:06:17,278 - INFO - __main__ - Feature-engineered dataset saved successfully: data/processed/traffic_features_part2.csv
+2026-09-17 12:30:34,029 - INFO - __main__ - Feature-engineered dataset loaded: 48187 rows, 30 columns.
+2026-09-17 12:30:34,769 - INFO - __main__ - Figure saved successfully: part2_python/figures/task3_1_traffic_by_hour.png
+2026-09-17 12:38:15,501 - INFO - __main__ - Feature-engineered dataset loaded: 48187 rows, 30 columns.
+2026-09-17 12:38:15,873 - INFO - __main__ - Figure saved successfully: part2_python/figures/task3_1_traffic_by_hour.png
+2026-09-17 12:38:15,941 - INFO - __main__ - Figure saved successfully: part2_python/figures/task3_2_weekday_vs_weekend.png
+2026-09-17 12:43:27,062 - INFO - __main__ - Feature-engineered dataset loaded: 48187 rows, 30 columns.
+2026-09-17 12:43:27,202 - INFO - __main__ - Figure saved successfully: part2_python/figures/task3_1_traffic_by_hour.png
+2026-09-17 12:43:27,280 - INFO - __main__ - Figure saved successfully: part2_python/figures/task3_2_weekday_vs_weekend.png
+2026-09-17 12:50:26,045 - INFO - __main__ - Feature-engineered dataset loaded: 48187 rows, 30 columns.
+2026-09-17 12:50:26,200 - INFO - __main__ - Figure saved successfully: part2_python/figures/task3_1_traffic_by_hour.png
+2026-09-17 12:50:26,287 - INFO - __main__ - Figure saved successfully: part2_python/figures/task3_2_weekday_vs_weekend.png
+2026-09-17 12:50:26,398 - INFO - __main__ - Figure saved successfully: part2_python/figures/task3_3_traffic_by_weather.png

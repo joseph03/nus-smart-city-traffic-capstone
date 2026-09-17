@@ -240,4 +240,45 @@ The feature-engineering process:
 **Result:** The cleaned dataset contains 48,187 rows and 9 columns. After feature engineering, the dataset contains 48,187 rows and 30 columns.
 
 
+### Task 3 - Traffic Visualisations
+
+- `part2_python/`
+  - `visualizations.py`
+  - `figures/`
+    - `task3_1_traffic_by_hour.png`
+    - `task3_2_weekday_vs_weekend.png`
+    - `task3_3_traffic_by_weather.png`
+
+Three Matplotlib visualisations were created from the feature-engineered dataset and saved to `part2_python/figures/`.
+
+#### Task 3.1 - Traffic Demand by Hour
+
+![Traffic by Hour](part2_python/figures/task3_1_traffic_by_hour.png)
+
+- Traffic volume is lowest during the overnight period, particularly around 2–3 AM.
+- Traffic rises sharply between approximately 5 AM and 7 AM.
+- Traffic remains relatively high throughout the daytime.
+- The highest average traffic volume occurs around 4 PM.
+- Traffic declines progressively during the evening.
+
+#### Task 3.2 - Weekday vs Weekend Traffic
+
+![Weekday vs Weekend Traffic](part2_python/figures/task3_2_weekday_vs_weekend.png)
+
+- Average traffic volume is substantially higher on weekdays than on weekends.
+- Weekday traffic averages approximately 3,500 vehicles, compared with approximately 2,600 on weekends.
+- This suggests that workday and commuting activity are important contributors to traffic demand.
+
+#### Task 3.3 - Traffic by Weather Condition
+
+![Traffic by Weather Condition](part2_python/figures/task3_3_traffic_by_weather.png)
+
+- Average traffic volume varies across weather conditions.
+- Cloudy conditions have the highest average traffic volume.
+- Squall conditions have the lowest average traffic volume.
+- Clear weather is not associated with the highest traffic levels.
+- Weather appears to influence traffic patterns, but weather alone does not explain overall traffic demand.
+
+**Result:** Three Matplotlib visualisations were successfully generated and saved to disk. Each saved figure is also recorded in `part2_python/pipeline.log`.
+
 
