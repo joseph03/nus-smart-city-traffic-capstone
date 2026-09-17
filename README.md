@@ -176,6 +176,9 @@ conda activate tf_wsl2_310
 ![KPI cards and filters](part1_data_analytics/images/task4_3_KPI_cards&filters.png)
 
 ## Part 2 - Python Programming
+- `part2_python/` 
+  - part2_methodology_findings_report.pdf
+    [Read the Part 2 Methodology Findings Report](part2_python/part2_methodology_findings_report.pdf)
 
 ### Task 1 - Data Pipeline Construction
 - `part2_python/` 
@@ -342,3 +345,59 @@ The application also validates user input:
 
 **Result:** The mini-application successfully supports three different traffic queries and handles invalid user input without producing an unhandled traceback.
 
+### Task 5 - GitHub and Reproducibility
+
+The Part 2 Python workflow is maintained in GitHub using incremental commits corresponding to the major development tasks:
+
+* Data pipeline construction
+* Feature engineering
+* Traffic visualisations
+* Command-line application
+* Documentation and logging improvements
+
+#### Logging Configuration
+
+All Part 2 Python modules use:
+
+`logging.getLogger(__name__)`
+
+Logs are written to:
+
+`part2_python/pipeline.log`
+
+The logging formatter records:
+
+* Timestamp
+* Log level
+* Module name
+* Function name
+* Message
+
+The following logging levels are used:
+
+* `DEBUG` - Fine-grained intermediate values used for troubleshooting, such as scaling statistics and congestion thresholds.
+* `INFO` - Normal processing milestones, such as loading data, completing feature engineering, and saving output files.
+* `WARNING` - Recoverable data-quality issues, such as duplicate removal and outlier imputation.
+* `ERROR` - Errors that prevent normal processing or indicate invalid application input.
+
+Internal status and progress messages are handled through logging. `print()` is used only for output intended directly for users of the command-line application.
+
+#### Reproducible Execution Order
+
+Run the Part 2 workflow from the repository root in the following order:
+
+`python part2_python/pipeline.py`
+
+`python part2_python/feature_engineering.py`
+
+`python part2_python/visualizations.py`
+
+The mini-application can then be run using:
+
+`python part2_python/mini_app/app.py compare-days`
+
+`python part2_python/mini_app/app.py high-traffic`
+
+`python part2_python/mini_app/app.py traffic-at "2016-07-11 17:00"`
+
+**Result:** The Part 2 workflow is version-controlled, logged, reproducible, and can be executed sequentially from the raw dataset through cleaning, feature engineering, visualisation and command-line analysis.
