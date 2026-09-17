@@ -157,8 +157,8 @@ conda activate tf_wsl2_310
 
 ![Weather Impact Traffic Patterns](part1_data_analytics/images/task4_2c_traffic_by_weather.png)
 
-* Cloudy conditions had the highest average traffic volume at 3,618.45 vehicles.
-* Squall conditions had the lowest average traffic volume at 2,061.45 vehicles.
+* Cloudy conditions had the highest average traffic volume at approximately 3,618 vehicles.
+* Squall conditions had the lowest average traffic volume at approximately 2,062 vehicles.
 * The difference between the highest and lowest average traffic was 1,557 vehicles.
 * This suggests traffic volume varies across weather conditions, though weather alone should not be treated as the sole cause of the differences.
 
@@ -228,6 +228,8 @@ The feature-engineering process:
   - `temp`
   - `traffic_volume`
 - Creates a data-driven `congestion_category` using traffic-volume quartiles:
+  - Q1 = 1,192.5
+  - Q3 = 4,933.0
   - Low: up to the first quartile (Q1)
   - Medium: between Q1 and Q3
   - High: above the third quartile (Q3)
@@ -276,10 +278,12 @@ Three Matplotlib visualisations were created from the feature-engineered dataset
 ![Traffic by Weather Condition](part2_python/figures/task3_3_traffic_by_weather.png)
 
 - Average traffic volume varies across weather conditions.
-- Cloudy conditions have the highest average traffic volume.
-- Squall conditions have the lowest average traffic volume.
+- Cloudy conditions have the highest average traffic volume, at approximately 3,618 vehicles.
+- Squall conditions have the lowest average traffic volume, at approximately 2,062 vehicles.
 - Clear weather is not associated with the highest traffic levels.
 - Weather appears to influence traffic patterns, but weather alone does not explain overall traffic demand.
+
+**Note:** Part 1 Task 4.2C was calculated in Power BI using the raw 48,204-row dataset, which still included 17 exact duplicate records. Part 2 Task 3.3 was calculated in Python using the cleaned 48,187-row dataset after those duplicates were removed. This explains the small decimal point differences in the reported average traffic values.
 
 #### Task 3 Execution and Logging
 
@@ -290,4 +294,51 @@ The visualisation script records each successfully generated figure in `part2_py
 **Result:** Three Matplotlib visualisations were successfully generated and saved to disk, with each output recorded in the Part 2 pipeline log.
 
 
+### Task 4 - Mini Traffic Analytics Application
+
+- `part2_python/mini_app/`
+  - `app.py`
+
+A command-line traffic analytics application was developed using `argparse` and the processed feature dataset.
+
+The application supports three commands:
+
+#### Command 1 - Compare Weekday and Weekend Traffic
+
+`python part2_python/mini_app/app.py compare-days`
+
+This command compares average weekday and weekend traffic volumes.
+
+Example result:
+
+* Average weekday traffic volume: approximately 3,533 vehicles.
+* Average weekend traffic volume: approximately 2,571 vehicles.
+
+#### Command 2 - Identify High-Traffic Hours
+
+`python part2_python/mini_app/app.py high-traffic`
+
+This command displays the five hours with the highest average traffic volume.
+
+The highest average traffic period occurs at approximately 16:00, followed by 17:00 and 15:00.
+
+#### Command 3 - Query Traffic at a Specific Date and Time
+
+`python part2_python/mini_app/app.py traffic-at "2016-07-11 17:00"`
+
+Example result:
+
+* Traffic volume: 5,535 vehicles.
+* Weather: Rain.
+* Temperature: 302.11 K.
+
+The application also validates user input:
+
+* Invalid commands generate a logged ERROR and display the available commands.
+* Invalid date/time values generate a logged ERROR and display the expected `YYYY-MM-DD HH:MM` format.
+* User-facing query results are displayed using `print()`, while internal status and errors are handled through Python logging.
+
+![Task 4 Mini Application](part2_python/images/task4_mini_app.png)
+
+**Result:** The mini-application successfully supports three different traffic queries and handles invalid user input without producing an unhandled traceback.
 
