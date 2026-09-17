@@ -705,3 +705,93 @@ The SHAP summary plot also shows that weekend records generally reduce predicted
 Weather variables such as cloud coverage and individual weather categories contributed less to overall model predictions than time-based features.
 
 Overall, Task 3 shows that traffic demand is driven primarily by recurring time-of-day and day-of-week patterns, with weather contributing a smaller secondary effect.
+
+### Task 4 - Advanced AI Technique with MLflow
+
+Script:
+
+`part3_machine_learning/advanced_ai_mlflow.py`
+
+MLflow was selected as the advanced AI technique because it provides structured experiment tracking and connects directly with the later MLOps requirements.
+
+The MLflow experiment is named:
+
+`smart_city_traffic_models`
+
+The experiment currently tracks four supervised models developed in Task 1:
+
+* Logistic Regression Classification
+* Random Forest Classification
+* Linear Regression
+* Random Forest Regression
+
+For the classification models, MLflow records:
+
+* model type
+* model parameters
+* Accuracy
+* Precision
+* Recall
+* F1-score
+* ROC AUC
+
+For the regression models, MLflow records:
+
+* model type
+* model parameters
+* MAE
+* R-squared
+
+The MLflow configuration uses a local SQLite backend:
+
+`part3_machine_learning/mlflow.db`
+
+This database stores experiment metadata such as:
+
+* experiment information
+* run IDs
+* parameters
+* evaluation metrics
+* model metadata
+
+The normal Python execution log remains separate:
+
+`part3_machine_learning/part3.log`
+
+The MLflow script uses the same 21 engineered features, target definitions, train/test split settings and model parameters used in Task 1 so that the tracked results remain consistent with the original supervised-learning experiments.
+
+Each execution of `advanced_ai_mlflow.py` creates a new set of MLflow runs under the same experiment rather than overwriting earlier runs.
+
+MLflow therefore provides a reproducible experiment history that can later support:
+
+* model comparison
+* model versioning
+* experiment tracking
+* deployment documentation
+* MLOps monitoring
+
+This technique was selected because it adds traceability and reproducibility without changing the underlying machine-learning models.
+
+A limitation is that repeated executions create additional run records, so unnecessary repeated runs should be avoided in the final project state.
+
+### Task 5 - Traffic Recommendation System
+
+Script:
+
+`part3_machine_learning/recommendation_system.py`
+
+Because the dataset represents a single traffic corridor, the recommendation system focuses on **travel timing** rather than route selection.
+
+The system:
+
+* filters historical traffic records by weekday or weekend
+* optionally considers a specified weather condition
+* restricts recommendations to practical travel hours from 06:00 to 22:00
+* calculates the average traffic volume for each eligible hour
+* recommends the one-hour period with the lowest historical average traffic
+* generates a plain-language recommendation for the user
+
+For a weekday journey, the current historical analysis recommends travelling between **21:00 and 22:00**, when average traffic volume is approximately **2,673 vehicles**.
+
+The practical-hour restriction prevents the system from selecting very low-traffic overnight periods, such as 02:00–03:00, which may be mathematically optimal but less useful for typical travel planning.
+
