@@ -290,7 +290,7 @@ Three Matplotlib visualisations were created from the feature-engineered dataset
 
 #### Task 3 Execution and Logging
 
-The visualisation script records each successfully generated figure in `part2_python/pipeline.log`. The log includes the Python filename and function name for easier tracing.
+The visualisation script records each successfully generated figure in `part2_python/pipeline.log`. The log includes the Python module and function name for easier tracing.
 
 ![Task 3 Visualisation Log](part2_python/images/task3_visualization.png)
 

@@ -1,43 +1,38 @@
-2026-09-17 14:10:51,356 - INFO - pipeline - load_data - Raw CSV loaded successfully: 48204 rows, 9 columns
-2026-09-17 14:10:51,357 - INFO - pipeline - validate_schema - Schema validation successful. All expected columns are present.
-2026-09-17 14:10:51,378 - INFO - pipeline - standardise_categories - Categorical values standardised for holiday, weather_main and weather_description.
-2026-09-17 14:10:51,395 - INFO - pipeline - parse_datetime - All date_time values parsed successfully.
-2026-09-17 14:10:51,420 - WARNING - pipeline - remove_duplicates - 17 duplicate rows were removed.
-2026-09-17 14:10:51,426 - WARNING - pipeline - handle_invalid_temperature - 4 invalid temperature rows in month 1 were imputed with monthly median 266.83 K.
-2026-09-17 14:10:51,428 - WARNING - pipeline - handle_invalid_temperature - 6 invalid temperature rows in month 2 were imputed with monthly median 266.51 K.
-2026-09-17 14:10:51,435 - WARNING - pipeline - handle_extreme_rainfall - 1 extreme rainfall rows in month 7 were imputed with monthly positive-rain median 1.09 mm.
-2026-09-17 14:10:51,446 - INFO - pipeline - validate_cleaned_data - Cleaned data validation successful: 48187 rows, 9 columns.
-2026-09-17 14:10:51,597 - INFO - pipeline - save_cleaned_data - Cleaned dataset saved successfully: data/processed/traffic_clean_part2.csv
-2026-09-17 14:12:09,829 - INFO - feature_engineering - load_cleaned_data - Cleaned dataset loaded for feature engineering: 48187 rows, 9 columns.
-2026-09-17 14:12:09,829 - INFO - feature_engineering - main - Dataset shape before feature engineering: 48187 rows, 9 columns.
-2026-09-17 14:12:09,832 - INFO - feature_engineering - create_time_features - Time features created: hour, day_of_week, weekend.
-2026-09-17 14:12:09,837 - INFO - feature_engineering - create_cyclical_features - Cyclical hour features created: hour_sin, hour_cos.
-2026-09-17 14:12:09,846 - INFO - feature_engineering - create_weather_features - Weather features created: is_clear, has_rain.
-2026-09-17 14:12:09,859 - INFO - feature_engineering - encode_weather_category - weather_main encoded into 11 one-hot columns.
-2026-09-17 14:12:09,871 - INFO - feature_engineering - scale_numerical_features - Numerical features scaled: temp, traffic_volume.
-2026-09-17 14:12:09,879 - INFO - feature_engineering - create_congestion_category - Data-driven congestion category created using traffic-volume quartiles.
-2026-09-17 14:12:09,879 - INFO - feature_engineering - main - Dataset shape after feature engineering: 48187 rows, 30 columns.
-2026-09-17 14:12:10,410 - INFO - feature_engineering - save_feature_data - Feature-engineered dataset saved successfully: data/processed/traffic_features_part2.csv
-2026-09-17 14:13:21,439 - INFO - visualizations - load_feature_data - Feature-engineered dataset loaded: 48187 rows, 30 columns.
-2026-09-17 14:13:21,593 - INFO - visualizations - plot_traffic_by_hour - Figure saved successfully: part2_python/figures/task3_1_traffic_by_hour.png
-2026-09-17 14:13:21,668 - INFO - visualizations - plot_weekday_vs_weekend - Figure saved successfully: part2_python/figures/task3_2_weekday_vs_weekend.png
-2026-09-17 14:13:21,771 - INFO - visualizations - plot_traffic_by_weather - Figure saved successfully: part2_python/figures/task3_3_traffic_by_weather.png
-2026-09-17 15:20:54,818 - INFO - app - main - CLI command invoked: compare-days
-2026-09-17 15:20:54,982 - INFO - app - load_data - Processed dataset loaded: 48187 rows, 30 columns.
-2026-09-17 15:24:27,441 - INFO - app - main - CLI command invoked: high-traffic
-2026-09-17 15:24:27,565 - INFO - app - load_data - Processed dataset loaded: 48187 rows, 30 columns.
-2026-09-17 15:31:24,326 - INFO - app - main - CLI command invoked: traffic-at
-2026-09-17 15:31:24,453 - INFO - app - load_data - Processed dataset loaded: 48187 rows, 30 columns.
-2026-09-17 15:31:24,453 - INFO - app - main - traffic-at argument: 2016-07-11 17:00
-2026-09-17 15:32:53,409 - INFO - app - main - CLI command invoked: traffic-at
-2026-09-17 15:32:53,540 - INFO - app - load_data - Processed dataset loaded: 48187 rows, 30 columns.
-2026-09-17 15:32:53,540 - INFO - app - main - traffic-at argument: wrong-date
-2026-09-17 15:32:53,541 - ERROR - app - traffic_at_datetime - Invalid date/time format: wrong-date. Expected format: YYYY-MM-DD HH:MM
-2026-09-17 15:37:41,581 - ERROR - app - error - Invalid CLI input: argument command: invalid choice: 'high-traffics' (choose from compare-days, high-traffic, traffic-at)
-2026-09-17 15:38:35,822 - INFO - app - main - CLI command invoked: traffic-at
-2026-09-17 15:38:35,944 - INFO - app - load_data - Processed dataset loaded: 48187 rows, 30 columns.
-2026-09-17 15:38:35,944 - INFO - app - main - traffic-at argument: wrong-date
-2026-09-17 15:38:35,945 - ERROR - app - traffic_at_datetime - Invalid date/time format: wrong-date. Expected format: YYYY-MM-DD HH:MM
-2026-09-17 15:39:38,787 - INFO - app - main - CLI command invoked: traffic-at
-2026-09-17 15:39:38,912 - INFO - app - load_data - Processed dataset loaded: 48187 rows, 30 columns.
-2026-09-17 15:39:38,912 - INFO - app - main - traffic-at argument: 2016-07-11 17:00
+2026-09-17 16:15:22,573 - INFO - pipeline - load_data - Raw CSV loaded successfully: 48204 rows, 9 columns
+2026-09-17 16:15:22,573 - INFO - pipeline - validate_schema - Schema validation successful. All expected columns are present.
+2026-09-17 16:15:22,584 - WARNING - pipeline - standardise_categories - 48143 missing holiday values were replaced with 'None'.
+2026-09-17 16:15:22,597 - WARNING - pipeline - standardise_categories - 1730 weather_description values were standardised.
+2026-09-17 16:15:22,602 - INFO - pipeline - standardise_categories - Categorical standardisation completed.
+2026-09-17 16:15:22,619 - INFO - pipeline - parse_datetime - All date_time values parsed successfully.
+2026-09-17 16:15:22,644 - WARNING - pipeline - remove_duplicates - 17 duplicate rows were removed.
+2026-09-17 16:15:22,650 - WARNING - pipeline - handle_invalid_temperature - 4 invalid temperature rows in month 1 were imputed with monthly median 266.83 K.
+2026-09-17 16:15:22,652 - WARNING - pipeline - handle_invalid_temperature - 6 invalid temperature rows in month 2 were imputed with monthly median 266.51 K.
+2026-09-17 16:15:22,658 - WARNING - pipeline - handle_extreme_rainfall - 1 extreme rainfall rows in month 7 were imputed with monthly positive-rain median 1.09 mm.
+2026-09-17 16:15:22,670 - INFO - pipeline - validate_cleaned_data - Cleaned data validation successful: 48187 rows, 9 columns.
+2026-09-17 16:15:22,822 - INFO - pipeline - save_cleaned_data - Cleaned dataset saved successfully: data/processed/traffic_clean_part2.csv
+2026-09-17 16:24:08,074 - INFO - feature_engineering - load_cleaned_data - Cleaned dataset loaded for feature engineering: 48187 rows, 9 columns.
+2026-09-17 16:24:08,074 - INFO - feature_engineering - main - Dataset shape before feature engineering: 48187 rows, 9 columns.
+2026-09-17 16:24:08,077 - INFO - feature_engineering - create_time_features - Time features created: hour, day_of_week, weekend.
+2026-09-17 16:24:08,083 - INFO - feature_engineering - create_cyclical_features - Cyclical hour features created: hour_sin, hour_cos.
+2026-09-17 16:24:08,092 - INFO - feature_engineering - create_weather_features - Weather features created: is_clear, has_rain.
+2026-09-17 16:24:08,108 - INFO - feature_engineering - encode_weather_category - weather_main encoded into 11 one-hot columns.
+2026-09-17 16:24:08,121 - INFO - feature_engineering - scale_numerical_features - Numerical features scaled: temp, traffic_volume.
+2026-09-17 16:24:08,130 - INFO - feature_engineering - create_congestion_category - Data-driven congestion category created using traffic-volume quartiles.
+2026-09-17 16:24:08,130 - INFO - feature_engineering - main - Dataset shape after feature engineering: 48187 rows, 30 columns.
+2026-09-17 16:24:08,689 - INFO - feature_engineering - save_feature_data - Feature-engineered dataset saved successfully: data/processed/traffic_features_part2.csv
+2026-09-17 16:25:07,791 - INFO - visualizations - load_feature_data - Feature-engineered dataset loaded: 48187 rows, 30 columns.
+2026-09-17 16:25:07,984 - INFO - visualizations - plot_traffic_by_hour - Figure saved successfully: part2_python/figures/task3_1_traffic_by_hour.png
+2026-09-17 16:25:08,068 - INFO - visualizations - plot_weekday_vs_weekend - Figure saved successfully: part2_python/figures/task3_2_weekday_vs_weekend.png
+2026-09-17 16:25:08,187 - INFO - visualizations - plot_traffic_by_weather - Figure saved successfully: part2_python/figures/task3_3_traffic_by_weather.png
+2026-09-17 16:27:30,437 - ERROR - app - error - Invalid CLI input: argument command: invalid choice: 'traffic-' (choose from 'compare-days', 'high-traffic', 'traffic-at')
+2026-09-17 16:28:05,457 - INFO - app - main - CLI command invoked: traffic-at
+2026-09-17 16:28:05,582 - INFO - app - load_data - Processed dataset loaded: 48187 rows, 30 columns.
+2026-09-17 16:28:05,582 - INFO - app - main - traffic-at argument: wrong-date
+2026-09-17 16:28:05,583 - ERROR - app - traffic_at_datetime - Invalid date/time format: wrong-date. Expected format: YYYY-MM-DD HH:MM
+2026-09-17 16:28:24,207 - INFO - app - main - CLI command invoked: traffic-at
+2026-09-17 16:28:24,333 - INFO - app - load_data - Processed dataset loaded: 48187 rows, 30 columns.
+2026-09-17 16:28:24,333 - INFO - app - main - traffic-at argument: 2016-07-11 17:00
+2026-09-17 16:28:40,810 - INFO - app - main - CLI command invoked: high-traffic
+2026-09-17 16:28:40,935 - INFO - app - load_data - Processed dataset loaded: 48187 rows, 30 columns.
+2026-09-17 16:28:57,983 - INFO - app - main - CLI command invoked: compare-days
+2026-09-17 16:28:58,110 - INFO - app - load_data - Processed dataset loaded: 48187 rows, 30 columns.

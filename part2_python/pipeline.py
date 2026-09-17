@@ -101,6 +101,8 @@ def validate_schema(df):
 def standardise_categories(df):
     df = df.copy()
 
+    missing_holiday_count = df["holiday"].isna().sum()
+
     df["holiday"] = (
         df["holiday"]
         .fillna("None")
@@ -108,22 +110,41 @@ def standardise_categories(df):
         .str.strip()
     )
 
+    if missing_holiday_count > 0:
+        logger.warning(
+            "%d missing holiday values were replaced with 'None'.",
+            missing_holiday_count,
+        )
+
+    original_weather_description = df["weather_description"].astype(str)
+
+    standardised_weather_description = (
+        original_weather_description
+        .str.strip()
+        .str.lower()
+    )
+
+    weather_description_changes = (
+        original_weather_description
+        != standardised_weather_description
+    ).sum()
+
+    df["weather_description"] = standardised_weather_description
+
+    if weather_description_changes > 0:
+        logger.warning(
+            "%d weather_description values were standardised.",
+            weather_description_changes,
+        )
+
     df["weather_main"] = (
         df["weather_main"]
         .astype(str)
         .str.strip()
     )
 
-    df["weather_description"] = (
-        df["weather_description"]
-        .astype(str)
-        .str.strip()
-        .str.lower()
-    )
-
     logger.info(
-        "Categorical values standardised for holiday, "
-        "weather_main and weather_description."
+        "Categorical standardisation completed."
     )
 
     return df
