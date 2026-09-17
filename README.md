@@ -302,7 +302,7 @@ The visualisation script records each successfully generated figure in `part2_py
 - `part2_python/mini_app/`
   - `app.py`
 
-A command-line traffic analytics application was developed using `argparse` and the processed feature dataset.
+A command-line traffic analytics application was developed using Python's `argparse` module and the feature-engineered dataset `data/processed/traffic_features_part2.csv`. A custom `TrafficArgumentParser` class extends `argparse.ArgumentParser` to provide clearer error messages and log invalid command-line input.
 
 The application supports three commands:
 
@@ -401,3 +401,15 @@ The mini-application can then be run using:
 `python part2_python/mini_app/app.py traffic-at "2016-07-11 17:00"`
 
 **Result:** The Part 2 workflow is version-controlled, logged, reproducible, and can be executed sequentially from the raw dataset through cleaning, feature engineering, visualisation and command-line analysis.
+
+#### CLI Error Handling Tests
+
+The following commands can be used to reproduce and verify the application's error handling:
+
+`python part2_python/mini_app/app.py traffic-at "wrong-date"`
+
+This verifies handling of a valid `traffic-at` command with an invalid date/time argument. The application logs an `ERROR` and displays the required `YYYY-MM-DD HH:MM` format without producing a traceback.
+
+`python part2_python/mini_app/app.py traffic-`
+
+This verifies handling of an invalid command. The custom `TrafficArgumentParser` logs an `ERROR` and displays the three supported commands.
