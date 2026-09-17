@@ -248,6 +248,8 @@ The feature-engineering process:
     - `task3_1_traffic_by_hour.png`
     - `task3_2_weekday_vs_weekend.png`
     - `task3_3_traffic_by_weather.png`
+  - `images/`
+    - `task3_visualization.png`
 
 Three Matplotlib visualisations were created from the feature-engineered dataset and saved to `part2_python/figures/`.
 
@@ -279,6 +281,13 @@ Three Matplotlib visualisations were created from the feature-engineered dataset
 - Clear weather is not associated with the highest traffic levels.
 - Weather appears to influence traffic patterns, but weather alone does not explain overall traffic demand.
 
-**Result:** Three Matplotlib visualisations were successfully generated and saved to disk. Each saved figure is also recorded in `part2_python/pipeline.log`.
+#### Task 3 Execution and Logging
+
+The visualisation script records each successfully generated figure in `part2_python/pipeline.log`. The log includes the Python filename and function name for easier tracing.
+
+![Task 3 Visualisation Log](part2_python/images/task3_visualization.png)
+
+**Result:** Three Matplotlib visualisations were successfully generated and saved to disk, with each output recorded in the Part 2 pipeline log.
+
 
 

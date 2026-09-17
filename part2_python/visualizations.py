@@ -167,7 +167,7 @@ if __name__ == "__main__":
     logger.setLevel(logging.INFO)
 
     formatter = logging.Formatter(
-        "%(asctime)s - %(levelname)s - %(name)s - %(message)s"
+        "%(asctime)s - %(levelname)s - %(filename)s - %(funcName)s - %(message)s"
     )
 
     console_handler = logging.StreamHandler()
