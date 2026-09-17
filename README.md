@@ -413,3 +413,295 @@ This verifies handling of a valid `traffic-at` command with an invalid date/time
 `python part2_python/mini_app/app.py traffic-`
 
 This verifies handling of an invalid command. The custom `TrafficArgumentParser` logs an `ERROR` and displays the three supported commands.
+
+## Part 3 - Machine Learning, Deep Learning and AI
+
+Part 3 extends the cleaned and feature-engineered traffic dataset from Part 2 into supervised machine learning, unsupervised learning, deep learning and model explainability.
+
+The Part 2 feature-engineered dataset used as the main input is:
+
+`data/processed/traffic_features_part2.csv`
+
+The dataset contains 48,187 cleaned records and 30 columns.
+
+---
+
+### Task 1 - Supervised Machine Learning Models
+
+Script:
+
+`part3_machine_learning/supervised_models.py`
+
+Task 1 develops both classification and regression models using a common engineered feature set.
+
+#### Classification Target
+
+Because no real accident dataset was provided, a proxy accident-risk target was created as required by the assignment.
+
+Traffic congestion was first divided into four data-driven categories using traffic-volume quartiles:
+
+* Low: traffic volume <= Q1 = 1,192.50
+* Medium: traffic volume <= Q2 = 3,379.00
+* High: traffic volume <= Q3 = 4,933.00
+* Severe: traffic volume > Q3
+
+The binary proxy target `high_risk` was then created using congestion and weather conditions.
+
+High risk is defined as:
+
+* High or Severe congestion
+* AND
+* severe weather or low-visibility weather
+
+The resulting target distribution was:
+
+* `high_risk = 1` -> 5,438 records
+* `low_risk = 0` -> 42,749 records
+
+This proxy label is used only to demonstrate the machine-learning classification workflow and should not be interpreted as a prediction of actual accidents.
+
+#### Classification Features
+
+A common set of 21 engineered features was used, including:
+
+* cyclical hour features: `hour_sin`, `hour_cos`
+* cyclical day features: `day_sin`, `day_cos`
+* weekend indicator
+* holiday flag
+* scaled temperature
+* rainfall
+* snowfall
+* cloud coverage
+* one-hot encoded weather categories
+
+`traffic_volume`, `traffic_volume_scaled`, and congestion category were not used as classification inputs because they were directly involved in creating the proxy target and would introduce target leakage.
+
+#### Classification Models
+
+Two classification algorithms were trained using an 80% training and 20% test split with stratification.
+
+**Logistic Regression**
+
+* Accuracy: 0.9788
+* Precision: 0.9123
+* Recall: 0.8989
+* F1-score: 0.9056
+* ROC AUC: 0.9938
+
+**Random Forest Classifier**
+
+* Accuracy: 0.9841
+* Precision: 0.9277
+* Recall: 0.9320
+* F1-score: 0.9298
+* ROC AUC: 0.9970
+
+The Random Forest Classifier achieved stronger performance across all reported classification metrics.
+
+#### Regression Target
+
+The regression models predict:
+
+`traffic_volume`
+
+The same engineered feature set was used, excluding `traffic_volume_scaled` to prevent target leakage.
+
+#### Regression Models
+
+Two regression algorithms were trained.
+
+**Linear Regression**
+
+* MAE: 834.09 vehicles
+* R-squared: 0.7092
+
+**Random Forest Regressor**
+
+* MAE: 269.83 vehicles
+* R-squared: 0.9449
+
+The Random Forest Regressor produced substantially lower prediction error and explained approximately 94.5% of the variation in traffic volume.
+
+---
+
+### Task 2 - Unsupervised Machine Learning
+
+Script:
+
+`part3_machine_learning/unsupervised_models.py`
+
+Task 2 applies K-means clustering and association rule mining to identify traffic patterns without a predefined prediction target.
+
+#### Task 2.1 - K-means Clustering
+
+K-means clustering was applied using:
+
+* hour
+* traffic volume
+* weather severity
+
+Weather severity was encoded as:
+
+* 0 = relatively normal weather
+* 1 = rain or drizzle
+* 2 = low-visibility weather
+* 3 = severe weather
+
+The input variables were standardized before clustering.
+
+Four clusters were created.
+
+**Cluster 0**
+
+* Records: 8,309
+* Average hour: 12.42
+* Average traffic volume: 4,072.76
+* Average weather severity: 2.38
+
+Interpretation: daytime traffic under poor or severe weather conditions.
+
+**Cluster 1**
+
+* Records: 13,209
+* Average hour: 2.95
+* Average traffic volume: 833.91
+* Average weather severity: 0.73
+
+Interpretation: overnight low-traffic conditions.
+
+**Cluster 2**
+
+* Records: 17,449
+* Average hour: 12.35
+* Average traffic volume: 5,075.93
+* Average weather severity: 0.20
+
+Interpretation: busy daytime traffic under generally normal weather.
+
+**Cluster 3**
+
+* Records: 9,220
+* Average hour: 20.77
+* Average traffic volume: 2,564.61
+* Average weather severity: 0.31
+
+Interpretation: evening traffic with moderate traffic volume and generally normal weather.
+
+#### Task 2.2 - Association Rule Mining
+
+Association rule mining was performed using categorical representations of:
+
+* time of day
+* weekday or weekend
+* weather group
+* congestion level
+
+The transaction matrix contained:
+
+* 48,187 records
+* 14 categorical items
+* 149 frequent itemsets
+
+After filtering the rules so that the consequent contains exactly one congestion category, 62 congestion-prediction rules were identified.
+
+Representative high-lift rules include:
+
+**Weekend Night -> Low Congestion**
+
+* Support: 0.0644
+* Confidence: 0.8861
+* Lift: 3.5443
+
+Interpretation: when the record occurs on a weekend night, approximately 88.6% of these cases have Low congestion. Low congestion is approximately 3.54 times more likely than its general occurrence.
+
+**Weekend Afternoon + Normal Weather -> High Congestion**
+
+* Support: 0.0387
+* Confidence: 0.8454
+* Lift: 3.3797
+
+Interpretation: on weekend afternoons with normal weather, approximately 84.5% of records have High congestion.
+
+Overall, the association rules show a strong relationship between night-time travel and Low congestion, while some weekend daytime periods are associated with higher congestion.
+
+---
+
+### Task 3 - Deep Learning with Explainability
+
+Scripts:
+
+* `part3_machine_learning/deep_learning.py`
+* `part3_machine_learning/explainability.py`
+
+#### Neural Network
+
+A PyTorch feed-forward neural network was developed to predict traffic volume using the same 21 engineered input features.
+
+The neural network architecture contains:
+
+* input layer
+* 64-neuron hidden layer with ReLU
+* 32-neuron hidden layer with ReLU
+* single regression output
+
+The model was trained for 50 epochs using Adam optimization and mean squared error loss.
+
+CUDA was successfully used for neural-network training.
+
+**Neural Network Regression Results**
+
+* MAE: 280.12 vehicles
+* R-squared: 0.9437
+
+The neural network achieved strong predictive performance and performed close to the Random Forest Regressor.
+
+For comparison:
+
+* Random Forest Regressor MAE: 269.83
+* Neural Network MAE: 280.12
+* Random Forest Regressor R-squared: 0.9449
+* Neural Network R-squared: 0.9437
+
+The Random Forest Regressor remained slightly stronger on this dataset.
+
+The neural-network artifacts are saved under:
+
+`part3_machine_learning/models/`
+
+including:
+
+* `neural_network_regression.pt`
+* `nn_x_scaler.joblib`
+* `nn_y_scaler.joblib`
+
+#### SHAP Explainability
+
+SHAP was used to explain a comparable Random Forest Regressor trained on the same traffic-volume prediction problem.
+
+A model-agnostic Permutation SHAP explainer was used because the tree-specific SHAP implementation produced a low-level segmentation fault in the project environment.
+
+To control computational cost, SHAP explanations were generated for a representative sample of 200 test records.
+
+Generated figures:
+
+* `part3_machine_learning/figures/task3_shap_summary.png`
+* `part3_machine_learning/figures/task3_shap_feature_importance.png`
+
+The SHAP results show that time of day is the strongest driver of predicted traffic volume.
+
+The most influential features were:
+
+* `hour_cos`
+* `hour_sin`
+* `day_sin`
+* `weekend`
+* `temp_scaled`
+* `day_cos`
+
+The two cyclical hour variables jointly represent time of day and should therefore be interpreted together rather than individually.
+
+The SHAP summary plot also shows that weekend records generally reduce predicted traffic volume, which is consistent with the earlier descriptive analysis showing lower weekend traffic.
+
+Weather variables such as cloud coverage and individual weather categories contributed less to overall model predictions than time-based features.
+
+Overall, Task 3 shows that traffic demand is driven primarily by recurring time-of-day and day-of-week patterns, with weather contributing a smaller secondary effect.
