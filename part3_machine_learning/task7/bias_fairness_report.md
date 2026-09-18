@@ -90,8 +90,8 @@ This would create target leakage and could produce unrealistically strong evalua
 The proxy classification target is imbalanced:
 
 ```text
-high_risk = 1 -> 5,438 records  ≈ 11.3%
-low_risk  = 0 -> 42,749 records ≈ 88.7%
+high_risk = 1 -> 5,438 records  approximately 11.3%
+low_risk  = 0 -> 42,749 records approximately 88.7%
 ```
 
 Because of this imbalance, classification performance was not evaluated using accuracy alone.
@@ -125,6 +125,8 @@ For example, rare weather conditions such as Squall, Smoke or severe Snow may co
 As a result, model performance for rare conditions may be less reliable.
 
 A production system should evaluate model errors separately across these operational groups rather than relying only on overall performance metrics.
+
+The dataset does not contain demographic or protected-attribute information such as age, gender, ethnicity or socioeconomic status. Therefore, demographic fairness metrics cannot be meaningfully evaluated in this project. The fairness assessment is instead limited to differences in model performance across observable traffic, time and weather conditions.
 
 ---
 
@@ -217,9 +219,9 @@ The current monitoring simulation returned:
 
 `PASS / Normal`
 
-However, this monitoring uses historical data rather than live production observations.
+However, this monitoring uses historical data rather than live production observations. The simulated recent-data window should therefore not be interpreted as an independent future-production test set.
 
-A real deployment would require continuously collected current data and clearly defined retraining procedures.
+A real deployment would require newly collected production data, independent performance monitoring and clearly defined retraining procedures.
 
 ---
 

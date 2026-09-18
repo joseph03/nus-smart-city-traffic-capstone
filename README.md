@@ -13,24 +13,21 @@ Most of this project can run on CPU, including:
 
 A GPU is optional but recommended for the deep-learning component.
 
-This project was developed in WSL2 with an NVIDIA GPU-enabled TensorFlow environment.
+This project was developed in WSL2 using a CUDA-enabled PyTorch environment. The Part 3 deep-learning component was implemented using PyTorch with an NVIDIA GPU.
+
 Users without a compatible GPU can still run the deep-learning code on CPU, although training may be slower.
 
-## Conda environments
+## Conda Environment
 
 The environment specification is stored in:
-- environment.yml
-- environment-tensorflow.yml
+
+- `environment.yml`
 
 To recreate the environment:
 
-conda env create -f environment.yml
+`conda env create -f environment.yml`
 
-conda activate pytorch310
-
-conda env create -f environment-tensorflow.yml
-
-conda activate tf_wsl2_310
+`conda activate pytorch310`
 
 ## Project Structure
 - `data/` - raw and processed traffic data
@@ -449,9 +446,8 @@ The binary proxy target `high_risk` was then created using congestion and weathe
 
 High risk is defined as:
 
-* High or Severe congestion
-* AND
-* severe weather or low-visibility weather
+- High or Severe congestion
+- AND severe weather or low-visibility weather
 
 The resulting target distribution was:
 
@@ -970,12 +966,24 @@ The trained deployment artifact is stored as:
 
 `part3_machine_learning/models/random_forest_regressor.joblib`
 
+**Model artifact note:** The trained `random_forest_regressor.joblib` file is approximately 623 MB and exceeds GitHub's standard 100 MB file-size limit. It is therefore excluded from version control using `.gitignore`.
+
+The deployment artifact can be reproduced locally by running:
+
+`python part3_machine_learning/supervised_models.py`
+
+This recreates:
+
+`part3_machine_learning/models/random_forest_regressor.joblib`
+
 The saved artifact contains:
 
 * trained Random Forest Regressor
 * model feature-column definitions
 * temperature mean
 * temperature standard deviation
+
+The source code, model parameters, feature definitions and evaluation results remain version-controlled, allowing the deployment model to be reproduced from the project repository.
 
 The temperature statistics are stored so that raw temperature values supplied through the API can be transformed into the same `temp_scaled` format used during model training.
 
@@ -1166,6 +1174,49 @@ part3_machine_learning/
 │   └── monitoring_status.json
 └── part3.log
 ```
+**Note:** random_forest_regressor.joblib is generated locally and excluded from GitHub because it exceeds GitHub's standard file-size limit.
 
 Overall, Task 6 demonstrates the movement from model development to experiment tracking, versioning, API deployment, monitoring and operational alerting.
+
+### Task 7 - Responsible and Sustainable AI
+
+Task 7 evaluates the responsible-AI, governance and sustainability considerations of the traffic intelligence solution.
+
+The detailed report is stored in:
+
+[Read the Task 7 Bias, Fairness, Governance and Sustainability Report - Markdown](part3_machine_learning/task7/bias_fairness_report.md)
+
+[Read the Task 7 Bias, Fairness, Governance and Sustainability Report - PDF](part3_machine_learning/task7/bias_fairness_report.pdf)
+
+The report covers:
+
+- limitations of using a single-corridor historical dataset
+- risks associated with the proxy `high_risk` accident-risk label
+- protection against target leakage
+- class imbalance
+- possible uneven model errors across traffic and weather conditions
+- limitations of the historical travel-timing recommendation system
+- model explainability using SHAP
+- human oversight and governance requirements
+- prediction-error and feature-drift monitoring
+- computational sustainability and model complexity
+- appropriate and inappropriate real-world uses of the models
+
+A key limitation is that no real accident dataset was supplied. The `high_risk` classification target is therefore a proxy based on congestion and adverse weather and must not be interpreted as actual accident probability.
+
+The project also demonstrates responsible operational practices through:
+
+- model versioning
+- MLflow experiment tracking
+- FastAPI deployment simulation
+- prediction-error monitoring
+- feature-drift monitoring
+- PASS / ALERT status reporting
+
+The current monitoring simulation returned:
+
+`PASS / Normal`
+
+The models developed in this project are analytical prototypes and would require additional validated data, external testing, governance and human oversight before any real-world safety-critical use.
+
 
