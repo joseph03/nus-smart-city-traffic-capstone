@@ -1219,4 +1219,8 @@ The current monitoring simulation returned:
 
 The models developed in this project are analytical prototypes and would require additional validated data, external testing, governance and human oversight before any real-world safety-critical use.
 
+### Final Capstone Report
 
+[Read the Part 3 Final Capstone Report - Markdown](part3_machine_learning/final_capstone_report.md)
+
+[Read the Part 3 Final Capstone Report - PDF](part3_machine_learning/final_capstone_report.pdf)
