@@ -795,3 +795,377 @@ For a weekday journey, the current historical analysis recommends travelling bet
 
 The practical-hour restriction prevents the system from selecting very low-traffic overnight periods, such as 02:00–03:00, which may be mathematically optimal but less useful for typical travel planning.
 
+### Task 6 - MLOps and Deployment Simulation
+
+Task 6 simulates how the traffic prediction solution could move from model experimentation into deployment, monitoring and operational use.
+
+The implementation covers:
+
+* model versioning
+* experiment tracking
+* deployment simulation
+* model monitoring
+* alerting
+
+This follows the assignment requirement to demonstrate a practical MLOps workflow rather than only training models.
+
+---
+
+#### Task 6.1 - Model Versioning
+
+File:
+
+`part3_machine_learning/mlops/model_versions.md`
+
+The major models developed in the project are documented with version identifiers, purpose and performance.
+
+##### Classification Models
+
+**C1 - Logistic Regression**
+
+Purpose:
+
+Predict the proxy `high_risk` target.
+
+Performance:
+
+* Accuracy: 0.9788
+* Precision: 0.9123
+* Recall: 0.8989
+* F1-score: 0.9056
+* ROC AUC: 0.9938
+
+Status:
+
+Baseline classification model.
+
+**C2 - Random Forest Classifier**
+
+Purpose:
+
+Predict the proxy `high_risk` target.
+
+Performance:
+
+* Accuracy: 0.9841
+* Precision: 0.9277
+* Recall: 0.9320
+* F1-score: 0.9298
+* ROC AUC: 0.9970
+
+Status:
+
+Stronger classification model based on the evaluation metrics.
+
+##### Regression Models
+
+**R1 - Linear Regression**
+
+Purpose:
+
+Predict `traffic_volume`.
+
+Performance:
+
+* MAE: 834.09 vehicles
+* R-squared: 0.7092
+
+Status:
+
+Baseline regression model.
+
+**R2 - Random Forest Regressor**
+
+Purpose:
+
+Predict `traffic_volume`.
+
+Performance:
+
+* MAE: 269.83 vehicles
+* R-squared: 0.9449
+
+Status:
+
+Strongest regression model based on the evaluation metrics.
+
+**R3 - PyTorch Neural Network**
+
+Purpose:
+
+Predict `traffic_volume` using deep learning.
+
+Performance:
+
+* MAE: 280.12 vehicles
+* R-squared: 0.9437
+
+Status:
+
+Deep-learning model with performance close to the Random Forest Regressor.
+
+---
+
+#### Task 6.2 - Experiment Tracking
+
+Script:
+
+`part3_machine_learning/advanced_ai_mlflow.py`
+
+MLflow is used to track supervised-learning experiments.
+
+The MLflow experiment is named:
+
+`smart_city_traffic_models`
+
+The experiment tracks:
+
+* Logistic Regression Classification
+* Random Forest Classification
+* Linear Regression
+* Random Forest Regression
+
+For classification models, MLflow records:
+
+* model type
+* model parameters
+* Accuracy
+* Precision
+* Recall
+* F1-score
+* ROC AUC
+
+For regression models, MLflow records:
+
+* model type
+* model parameters
+* MAE
+* R-squared
+
+The local MLflow backend is:
+
+`part3_machine_learning/mlflow.db`
+
+The SQLite database stores MLflow experiment metadata including:
+
+* experiment information
+* run IDs
+* parameters
+* metrics
+* model metadata
+
+The MLflow experiment tracking developed in Task 4 is reused here as part of the MLOps workflow.
+
+---
+
+#### Task 6.3 - Deployment Simulation
+
+File:
+
+`part3_machine_learning/mlops/api.py`
+
+The Random Forest Regressor was selected for deployment because it achieved the strongest regression performance in Task 1.
+
+The trained deployment artifact is stored as:
+
+`part3_machine_learning/models/random_forest_regressor.joblib`
+
+The saved artifact contains:
+
+* trained Random Forest Regressor
+* model feature-column definitions
+* temperature mean
+* temperature standard deviation
+
+The temperature statistics are stored so that raw temperature values supplied through the API can be transformed into the same `temp_scaled` format used during model training.
+
+The deployment simulation uses **FastAPI**.
+
+The API provides two endpoints:
+
+`GET /`
+
+Purpose:
+
+Check whether the API service is running.
+
+Successful response:
+
+```json
+{
+  "status": "PASS",
+  "message": "Smart City Traffic Prediction API is running."
+}
+```
+
+`POST /predict`
+
+Purpose:
+
+Accept traffic-condition inputs and return a predicted traffic volume.
+
+The API accepts:
+
+* hour
+* day of week
+* holiday indicator
+* temperature
+* rainfall
+* snowfall
+* cloud coverage
+* main weather condition
+
+The API internally recreates the same engineered features used during model training, including:
+
+* cyclical hour encoding
+* cyclical day-of-week encoding
+* weekend indicator
+* holiday flag
+* scaled temperature
+* one-hot weather encoding
+
+A successful test request returned:
+
+```json
+{
+  "status": "PASS",
+  "predicted_traffic_volume": 5555.76
+}
+```
+
+The FastAPI deployment was tested successfully through the automatically generated API documentation interface.
+
+Evidence screenshots:
+
+* `part3_machine_learning/images/task6_api_health.png`
+* `part3_machine_learning/images/task6_api_prediction.png`
+
+The API was run locally using:
+
+`python -m uvicorn part3_machine_learning.mlops.api:app --reload`
+
+---
+
+#### Task 6.4 - Model Monitoring
+
+File:
+
+`part3_machine_learning/mlops/monitoring.py`
+
+Monitoring is simulated using the historical traffic dataset.
+
+Two forms of monitoring are implemented:
+
+##### Prediction Error Drift
+
+The deployed Random Forest Regressor is evaluated using:
+
+* baseline prediction MAE
+* recent-window prediction MAE
+* percentage change in MAE
+
+The baseline result was:
+
+* Baseline MAE: 269.83
+
+The simulated recent-window result was:
+
+* Recent-window MAE: 133.24
+* MAE change: -50.62%
+
+The monitoring threshold is:
+
+* ALERT if recent MAE increases by more than 25% relative to the baseline
+
+Because the recent-window MAE was lower than the baseline MAE, no prediction-error alert was triggered.
+
+##### Feature Distribution Drift
+
+Feature drift is monitored by comparing the mean of recent data with the reference distribution using a standardized mean difference.
+
+The monitoring threshold is:
+
+* ALERT if standardized mean difference > 0.25
+
+Observed drift scores included:
+
+* `hour_sin`: 0.0004
+* `hour_cos`: 0.0150
+* `day_sin`: 0.0093
+* `day_cos`: 0.0072
+* `weekend`: 0.0034
+* `temp_scaled`: 0.0505
+* `rain_1h`: 0.0282
+* `snow_1h`: 0.0276
+* `clouds_all`: 0.0562
+
+All calculated drift scores remained below the alert threshold.
+
+The `holiday_flag` drift check was skipped because the reference sample had zero or unavailable standard deviation, meaning a standardized mean comparison was not meaningful for that feature.
+
+The monitoring simulation uses the most recent 20% of the historical dataset as a proxy for recently observed production data.
+
+This is a monitoring simulation rather than live production monitoring.
+
+---
+
+#### Task 6.5 - Alerting
+
+Monitoring results are converted into an operational status:
+
+* `PASS / Normal`
+* `ALERT / Requires investigation`
+
+The current monitoring result is:
+
+`PASS / Normal`
+
+A warning-level alert would be triggered if either:
+
+* prediction MAE increases by more than 25%, or
+* one or more monitored features exceed the 0.25 drift threshold
+
+The current status is saved in:
+
+`part3_machine_learning/mlops/monitoring_status.json`
+
+This JSON file stores:
+
+* overall monitoring status
+* baseline MAE
+* recent-window MAE
+* percentage MAE change
+* prediction-error alert status
+* feature drift scores
+* feature drift threshold
+* features that triggered alerts
+
+`monitoring_status.json` is separate from MLflow.
+
+MLflow tracks model experiments and model-development metrics, while `monitoring_status.json` records the latest simulated operational monitoring status.
+
+---
+
+#### Task 6 Folder Structure
+
+The Task 6 files are organised as:
+
+```text
+part3_machine_learning/
+├── advanced_ai_mlflow.py
+├── mlflow.db
+├── models/
+│   └── random_forest_regressor.joblib
+├── images/
+│   ├── task6_api_health.png
+│   └── task6_api_prediction.png
+├── mlops/
+│   ├── api.py
+│   ├── model_versions.md
+│   ├── monitoring.py
+│   └── monitoring_status.json
+└── part3.log
+```
+
+Overall, Task 6 demonstrates the movement from model development to experiment tracking, versioning, API deployment, monitoring and operational alerting.
+

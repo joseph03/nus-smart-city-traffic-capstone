@@ -28,6 +28,9 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.linear_model import LinearRegression   # LogisticRegression is needed too
 
+# for Random Forest Regressor
+import joblib
+
 logger = logging.getLogger(__name__)
 
 
@@ -534,6 +537,38 @@ def train_random_forest_regression(df, feature_columns):
     )
 
     model.fit(X_train, y_train)
+
+    models_dir = Path(
+        "part3_machine_learning/models"
+    )
+
+    models_dir.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
+
+    model_path = (
+        models_dir
+        / "random_forest_regressor.joblib"
+    )
+
+    temp_mean = df["temp"].mean()
+    temp_std = df["temp"].std()
+
+    joblib.dump(
+        {
+            "model": model,
+            "feature_columns": feature_columns,
+            "temp_mean": temp_mean,
+            "temp_std": temp_std,
+        },
+        model_path,
+    )
+
+    logger.info(
+        "Random Forest Regressor saved: %s",
+        model_path,
+    )
 
     predictions = model.predict(X_test)
 

@@ -1,0 +1,24 @@
+{
+    "status": "PASS / Normal",
+    "prediction_monitoring": {
+        "baseline_mae": 269.83,
+        "recent_mae": 133.24,
+        "mae_change_percent": -50.62,
+        "alert": false
+    },
+    "feature_monitoring": {
+        "drift_threshold": 0.25,
+        "drift_scores": {
+            "hour_sin": 0.0004,
+            "hour_cos": 0.015,
+            "day_sin": 0.0093,
+            "day_cos": 0.0072,
+            "weekend": 0.0034,
+            "temp_scaled": 0.0505,
+            "rain_1h": 0.0282,
+            "snow_1h": 0.0276,
+            "clouds_all": 0.0562
+        },
+        "alert_features": []
+    }
+}
