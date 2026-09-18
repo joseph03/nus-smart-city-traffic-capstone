@@ -249,4 +249,3 @@ dependencies:
       - zipp==4.1.0
 variables:
   PYTHONNOUSERSITE: '1'
-prefix: /home/i7ub22jt/anaconda3/envs/pytorch310
